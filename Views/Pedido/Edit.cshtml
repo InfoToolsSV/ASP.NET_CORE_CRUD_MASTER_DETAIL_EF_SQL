@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model Pedido
+
+<div class="container mt-4">
+    <h2>Editar Pedido</h2>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="PedidoId"/>
+         <div class="form-group">
+            <label asp-for="Fecha">Fecha</label>
+            <input asp-for="Fecha" class="form-control" type="date"/>
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ClienteId">Cliente</label>
+            <select asp-for="ClienteId" asp-items="new SelectList(ViewBag.Clientes, nameof(Cliente.ClienteId), nameof(Cliente.Nombre), Model.ClienteId)" class="form-control">
+                <option value="">Sleccione un cliente...</option>
+            </select>
+            <span asp-validation-for="ClienteId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </form>
+</div>

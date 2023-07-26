@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Create";
+}
+@model Pedido
+
+<div class="form-container">
+<h2>Crear Pedido</h2>
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Fecha">Fecha</label>
+        <input asp-for="Fecha" class="form-control" type="date" />
+        <span asp-validation-for="Fecha" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClienteId">Cliente</label>
+        <select asp-for="ClienteId" class="form-control" asp-items="new SelectList(ViewBag.Clientes, nameof(Cliente.ClienteId), nameof(Cliente.Nombre))">
+            <option value="">Seleccione un cliente...</option>
+        </select>
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Detalles del pedido</label>
+        <table class="table table-bordered" id="detalleTable">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i=0; i<ViewBag.Productos.Count; i++)
+                {
+                    var producto= ViewBag.Productos[i];
+                    <tr>
+                        <td>@producto.Nombre</td>
+                        <td><input type="number" name="cantidades[@i]" class="form-control"></td>
+                        <td><input disabled name="precios[@i]" value="@producto.Precio" class="form-control"></td>
+                        <td><input type="hidden" name="productoIds[@i]" value="@producto.ProductoId"></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+</div>

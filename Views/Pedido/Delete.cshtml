@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@model Pedido
+
+<div class="container">
+    <h2 class="text-center mt-4">Eliminar pedido</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Pedido</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3">ID del pedido:</dt>
+                <dd class="col-sm-9">@Model.PedidoId</dd>
+
+                <dt class="col-sm-3">Fecha:</dt>
+                <dd class="col-sm-9">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Cliente:</dt>
+                <dd class="col-sm-9">@Model.Cliente.Nombre</dd>
+            </dl>
+
+            <h4 class="card-title mt-4">Detalles del pedido</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detalle in ViewBag.DetallesPedido)
+                        {
+                            <tr>
+                                <td>@detalle.Producto.Nombre</td>
+                                <td>@detalle.Cantidad</td>
+                                <td>@detalle.Producto.Precio.ToString("C2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <form asp-action="Delete" asp-route-id="@Model.PedidoId" method="post">
+        <div class="form-group mt-4">
+            <input type="submit" value="Eliminar" class="btn btn-danger">
+            <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+        </div>
+    </form>
+</div>

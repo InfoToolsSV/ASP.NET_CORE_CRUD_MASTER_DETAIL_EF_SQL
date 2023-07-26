@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Details";
+}
+
+@model Pedido
+
+<div class="container mt-4">
+    <h2>Detalles del pedido</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Fecha: @Model.Fecha</h4>
+            <h4>Cliente: @Model.Cliente.Nombre</h4>
+        </div>
+    </div>
+
+    <table class="table table-bordered mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in Model.Detalles)
+            {
+                <tr>
+                    <td>@detalle.Producto.Nombre</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@detalle.Producto.Precio</td>
+                    <td>
+                        <a asp-action="EditDetalle"
+                            asp-route-id="@detalle.PedidoDetalleId"
+                            class="btn btn-primary btn-sm">Editar</a>
+                        <a asp-action="DeleteDetalle"
+                            asp-route-id="@detalle.PedidoDetalleId"
+                            class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "DeleteDetalle";
+}
+
+@model PedidoDetalle
+
+<h2>Eliminar detalle del pedido</h2>
+<div>
+    <h4>Detalle de pedido</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Pedido Detalle ID</dt>
+        <dd class="col-sm-10">@Model.PedidoDetalleId</dd>
+
+        <dt class="col-sm-2">Cantidad</dt>
+        <dd class="col-sm-10">@Model.Cantidad</dd>
+
+        <dt class="col-sm-2">Precio</dt>
+        <dd class="col-sm-10">@Model.Producto.Precio</dd>
+
+        <dt class="col-sm-2">Producto</dt>
+        <dd class="col-sm-10">@Model.Producto.Nombre</dd>
+    </dl>
+
+    <form asp-action="DeleteDetalle" asp-route-id="@Model.PedidoDetalleId"
+        method="post">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a asp-action="Details" asp-route-id="@Model.PedidoId"
+                class="btn btn-secondary">Volver</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "EditDetalle";
+}
+
+@model PedidoDetalle
+
+<div class="container mt-4">
+    <h2>Editar detalle del pedido</h2>
+    <form asp-action="EditDetalle">
+        <input type="hidden" asp-for="PedidoDetalleId">
+        <div class="form-group">
+            <label asp-for="ProductoId">Producto</label>
+            <select asp-for="ProductoId" asp-items="new SelectList(ViewBag.Productos, nameof(Producto.ProductoId), nameof(Producto.Nombre), Model.ProductoId)" class="form-control">
+                <option value="">Seleccione un producto...</option>
+            </select>
+            <span asp-validation-for="ProductoId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Cantidad">Cantidad</label>
+            <input asp-for="Cantidad" class="form-control">
+            <span asp-validation-for="Cantidad" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Producto.Precio">Precio</label>
+            <input asp-for="Producto.Precio" class="form-control" value="@ViewBag.ProductoPrecio" disabled />
+            <span asp-validation-for="Producto.Precio" class="text-danger"></span>
+        </div>
+        <button type=submit class="btn btn-primary">Guardar</button>
+        <a asp-action="Details" asp-route-id="@Model.PedidoId" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
